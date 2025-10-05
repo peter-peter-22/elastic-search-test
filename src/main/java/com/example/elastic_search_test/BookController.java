@@ -3,6 +3,7 @@ package com.example.elastic_search_test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.data.elasticsearch.core.query.StringQuery;
@@ -55,7 +56,7 @@ public class BookController {
                 .addSort(Sort.by(Sort.Direction.DESC, "rating").and(Sort.by(Sort.Direction.ASC, "_score")));
         SearchHits<Book> searchHits = operations.search(searchQuery, Book.class);
         return searchHits.getSearchHits().stream()
-                .map(hit -> hit.getContent())
+                .map(SearchHit::getContent)
                 .collect(Collectors.toList());
     }
 }

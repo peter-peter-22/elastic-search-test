@@ -1,0 +1,170 @@
+type: collection.insomnia.rest/5.0
+name: elastic search test
+meta:
+  id: wrk_8536099778714deaa92aaafdf5ff4cff
+  created: 1759611741554
+  modified: 1759611843338
+  description: ""
+collection:
+  - url: "{{ _.baseUrl }}/books/search/title?query=Elasticsearch"
+    name: Match title
+    meta:
+      id: req_b1080c3c1e32471285116828edb375f0
+      created: 1759611853806
+      modified: 1759660049882
+      isPrivate: false
+      description: ""
+      sortKey: -1759611853807
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/books/search/multi?query=apps"
+    name: Match multi
+    meta:
+      id: req_3774132c08e447d7bb465bbd62967470
+      created: 1759660035181
+      modified: 1759660148438
+      isPrivate: false
+      description: ""
+      sortKey: -1759660035181
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/books/filter/author?authorId=author123"
+    name: Filter by author
+    meta:
+      id: req_df5b726fd0814f71aac0d249363333e9
+      created: 1759662231978
+      modified: 1759667107399
+      isPrivate: false
+      description: ""
+      sortKey: -1759662231978
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/books/search/fuzzy?query=elasticserch"
+    name: Fuzzy search
+    meta:
+      id: req_2169ffac86b846ae84ce4284f2db23c3
+      created: 1759666461278
+      modified: 1759666852534
+      isPrivate: false
+      description: ""
+      sortKey: -1759666461278
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/books/predict/title?prefix=elas"
+    name: Predict
+    meta:
+      id: req_4066b85a6c334e72a8b5c310cbc57055
+      created: 1759666491883
+      modified: 1759666522074
+      isPrivate: false
+      description: ""
+      sortKey: -1759666491883
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/books/sorted/rating"
+    name: Sort by rating
+    meta:
+      id: req_56bf05e619f04e1193212d28f1923f6d
+      created: 1759666561818
+      modified: 1759666779583
+      isPrivate: false
+      description: ""
+      sortKey: -1759666561818
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/books/search/sorted?query=elasticsearch"
+    name: Search and sort
+    meta:
+      id: req_e93c4df41d9b4f7db0d5ba59e46c203e
+      created: 1759666701106
+      modified: 1759683860577
+      isPrivate: false
+      description: ""
+      sortKey: -1759666701106
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.6.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_63a37a7536db7e103e2c1415810cbcff176965f5
+    created: 1759611741729
+    modified: 1759611741729
+environments:
+  name: Base Environment
+  meta:
+    id: env_63a37a7536db7e103e2c1415810cbcff176965f5
+    created: 1759611741703
+    modified: 1759611801562
+    isPrivate: false
+  data:
+    baseUrl: http://localhost:8080
