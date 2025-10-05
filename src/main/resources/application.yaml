@@ -1,0 +1,7 @@
+spring:
+  application:
+      name:elastic-search-test
+  elasticsearch:
+    uris: http://localhost:9200  # Or your Docker host IP if not localhost
+    username: elastic  # If security enabled
+    password: secret  # If security enabled
