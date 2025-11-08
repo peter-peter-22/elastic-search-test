@@ -1,4 +1,4 @@
-package com.example.elastic_search_test;
+package com.example.elastic_search_test.relational;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.example.elastic_search_test;
+package com.example.elastic_search_test.relational;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

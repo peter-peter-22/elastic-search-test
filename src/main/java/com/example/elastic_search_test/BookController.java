@@ -1,5 +1,9 @@
 package com.example.elastic_search_test;
 
+import com.example.elastic_search_test.relational.Book;
+import com.example.elastic_search_test.relational.BookService;
+import com.example.elastic_search_test.search.BookIndex;
+import com.example.elastic_search_test.search.BookIndexRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;

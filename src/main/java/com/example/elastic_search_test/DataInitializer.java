@@ -1,5 +1,7 @@
 package com.example.elastic_search_test;
 
+import com.example.elastic_search_test.relational.Book;
+import com.example.elastic_search_test.relational.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

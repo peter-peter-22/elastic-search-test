@@ -1,4 +1,4 @@
-package com.example.elastic_search_test;
+package com.example.elastic_search_test.search;
 
 import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

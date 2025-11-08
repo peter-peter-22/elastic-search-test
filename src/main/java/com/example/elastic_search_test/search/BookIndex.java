@@ -1,4 +1,4 @@
-package com.example.elastic_search_test;
+package com.example.elastic_search_test.search;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
