@@ -1,32 +1,33 @@
 package com.example.elastic_search_test;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "books")
+import java.util.UUID;
+
+@Entity
+@Table(name = "books")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Book {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
-    @Field(type = FieldType.Text)  // Analyzed for full-text search
+    @Column(nullable = false)
     private String title;
 
-    @Field(type = FieldType.Text)
+    @Column(nullable = false)
     private String description;
 
-    @Field(type = FieldType.Keyword)  // Exact match for filtering/sorting
+    @Column(nullable = false, name = "author_id")
     private String authorId;
 
-    @Field(type = FieldType.Double)
-    private Double rating;
+    @Column(nullable = false)
+    private Float rating;
 }
