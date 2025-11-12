@@ -9,32 +9,32 @@ services:
       - '9200:9200'
       - '9300:9300'
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.17.10
-    ports:
-      - '5601:5601'
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-    depends_on:
-      - elasticsearch
+#  kibana:
+#    image: docker.elastic.co/kibana/kibana:7.17.10
+#    ports:
+#      - '5601:5601'
+#    environment:
+#      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+#    depends_on:
+#      - elasticsearch
 
-  kafbat-ui:
-    image: kafbat/kafka-ui:e21f6fb
-    ports:
-      - '8081:8080'
-    environment:
-      DYNAMIC_CONFIG_ENABLED: 'true'
-  #      volumes:
-  #        - ~/kui/config.yml:/etc/kafkaui/dynamic_config.yaml
+#  kafbat-ui:
+#    image: kafbat/kafka-ui:e21f6fb
+#    ports:
+#      - '8082:8080'
+#    environment:
+#      DYNAMIC_CONFIG_ENABLED: 'true'
+#  #      volumes:
+#  #        - ~/kui/config.yml:/etc/kafkaui/dynamic_config.yaml
 
   cockroachdb:
     image: cockroachdb/cockroach:v25.3.2
     command: start-single-node --insecure
     ports:
       - "26257:26257"  # SQL client
-      - "8080:8080"    # Admin UI
-    volumes:
-      - cockroach-data:/cockroach/cockroach-data
+      - "8081:8080"    # Admin UI
+#    volumes:
+#      - cockroach-data:/cockroach/cockroach-data
     environment:
       - COCKROACH_DATABASE=bookstore
 
@@ -60,40 +60,39 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
 
-      # Logs
+      # Persistence
       KAFKA_LOG_DIRS: /var/lib/kafka/data
-    volumes:
-      - kafka-data:/var/lib/kafka/data
-
-#  kafka-connect:
-#    image: confluentinc/cp-kafka-connect:7.7.1
-#    depends_on:
-#      - kafka
-#      - cockroachdb
-#      - elasticsearch
-#    ports:
-#      - "8083:8083"  # Connect REST API
-#    environment:
-#      CONNECT_BOOTSTRAP_SERVERS: kafka:9092
-#      CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect
-#      CONNECT_GROUP_ID: connect-cluster
-#      CONNECT_CONFIG_STORAGE_TOPIC: connect-configs
-#      CONNECT_OFFSET_STORAGE_TOPIC: connect-offsets
-#      CONNECT_STATUS_STORAGE_TOPIC: connect-status
-#      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-#      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
-#      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
-#      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
-#      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
-#      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components
 #    volumes:
-#      - connectors:/usr/share/confluent-hub-components
-#    command: >
-#      bash -c "confluent-hub install --no-prompt debezium/debezium-connector-cockroachdb:3.3.0 &&
-#               confluent-hub install --no-prompt confluentinc/kafka-connect-elasticsearch:14.1.2 &&
-#               /etc/confluent/docker/run"
-volumes:
-  connectors:
-  cockroach-data:
-  kafka-data:
-  es-data:
+#      - kafka-data:/var/lib/kafka/data
+
+  kafka-connect:
+    build:
+      context: .
+      dockerfile: connectors/connect.Dockerfile
+    depends_on:
+      - kafka
+      - cockroachdb
+      - elasticsearch
+    ports:
+      - "8083:8083"  # Connect REST API
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kafka:29092
+      CONNECT_REST_PORT: 8083
+      CONNECT_GROUP_ID: connect
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.storage.StringConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_REST_ADVERTISED_HOST_NAME: "localhost"
+
+      CONNECT_CONFIG_STORAGE_TOPIC: my_connect_configs
+      CONNECT_OFFSET_STORAGE_TOPIC: my_connect_offsets
+      CONNECT_STATUS_STORAGE_TOPIC: my_connect_statuses
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+    volumes:
+      - ./connectors/plugins:/kafka/connect
+
+#volumes:
+#  cockroach-data:
+#  kafka-data:
+#  es-data:

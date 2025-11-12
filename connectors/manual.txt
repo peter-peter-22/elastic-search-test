@@ -1,0 +1,25 @@
+# Submit connector config
+curl -X POST -H "Content-Type: application/json" \
+  --data @connectors/config/es-sink.json \
+  http://localhost:8083/connectors
+
+# Remove connector config
+curl -X DELETE http://localhost:8083/connectors/es-sink
+
+# List connectors
+curl localhost:8083/connectors
+
+# List topics
+opt/kafka/bin/kafka-topics.sh --list --bootstrap-server kafka:29092
+
+# List logs of topic
+opt/kafka/bin/kafka-console-consumer.sh --topic cdc_books --from-beginning --bootstrap-server kafka:29092 --property print.key=true
+
+# List elasticsearch docs of index
+curl http://localhost:9200/books/_search?size=10000
+
+# List elasticsearch indexes
+curl http://localhost:9200/_aliases
+
+# Elastic search sink config list
+https://docs.confluent.io/kafka-connectors/elasticsearch/current/configuration_options.html#elasticsearch-overview-config

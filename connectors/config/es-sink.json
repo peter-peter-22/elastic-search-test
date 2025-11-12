@@ -1,0 +1,22 @@
+{
+  "name": "es-sink2",
+  "config": {
+    "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+    "topics": "books",
+    "connection.url": "http://elasticsearch:9200",
+    "type.name": "_doc",
+
+    "external.resource.usage": "index",
+    "topic.to.external.resource.mapping": "cdc_books:books",
+
+    "key.ignore": "false",
+    "schema.ignore": "true",
+
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+
+    "behavior.on.null.values": "delete",
+    "behavior.on.malformed.documents": "warn"
+  }
+}

@@ -1,0 +1,20 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="
+                     http://www.liquibase.org/xml/ns/dbchangelog
+                     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.23.xsd">
+
+    <changeSet id="2" author="me">
+        <sql>
+            SET CLUSTER SETTING kv.rangefeed.enabled=true;
+            CREATE CHANGEFEED FOR TABLE books
+            INTO 'kafka://kafka:29092'
+            WITH envelope=bare;
+        </sql>
+        <rollback>
+            DROP TABLE IF EXISTS books;
+        </rollback>
+        <comment>Create the books table.</comment>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,10 +1,10 @@
 server:
   port:
-    80
+    8080
 
 spring:
   application:
-    name:elastic-search-test
+    name:elastic_search_test
 
   # elastic
   elasticsearch:
@@ -14,7 +14,7 @@ spring:
 
   # jdbc
   datasource:
-    url: jdbc:postgresql://localhost:26257/defaultdb?sslmode=disable
+    url: jdbc:postgresql://localhost:26257/bookstore?sslmode=disable
     username: root
     password:
     driver-class-name: org.postgresql.Driver
