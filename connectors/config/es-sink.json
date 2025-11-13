@@ -6,9 +6,6 @@
     "connection.url": "http://elasticsearch:9200",
     "type.name": "_doc",
 
-    "external.resource.usage": "index",
-    "topic.to.external.resource.mapping": "cdc_books:books",
-
     "key.ignore": "false",
     "schema.ignore": "true",
 

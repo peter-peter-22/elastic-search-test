@@ -90,8 +90,9 @@ services:
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
     volumes:
-      - ./connectors/plugins:/kafka/connect
-
+      - ./connectors/config:/home/config
+      - ./connectors/start.sh:/home/shell/start.sh
+    entrypoint: "bash /home/shell/start.sh"
 #volumes:
 #  cockroach-data:
 #  kafka-data:
